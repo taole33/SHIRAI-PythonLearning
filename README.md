@@ -8,5 +8,3 @@
 
 004stockratio.py
 入力された株価コードの、信用倍率と株価の相関係数を返すプログラムです。
-
-https://github.com/taole33/SHIRAI-PythonLearning/image/stockratio.gif
