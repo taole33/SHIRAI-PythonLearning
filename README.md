@@ -1,6 +1,6 @@
 # SHIRAI-PythonLearning
-
-
+ 
+## 0
 
 ## 004stockratio.py
 入力された株価コードの、信用倍率と株価の相関係数を返すプログラム
