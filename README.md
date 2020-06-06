@@ -1,6 +1,8 @@
 # SHIRAI-PythonLearning
  
-## 0
+## 005FoodChainSales
+フードチェーン店の売上前年同月比をグラフで比べるプログラムです。
+![タイトルなし](https://user-images.githubusercontent.com/20613753/83940932-4187e180-a822-11ea-902c-560f330e2c2b.gif)
 
 ## 004stockratio.py
 入力された株価コードの、信用倍率と株価の相関係数を返すプログラム
