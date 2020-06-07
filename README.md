@@ -11,9 +11,6 @@
 ![ratio](https://user-images.githubusercontent.com/20613753/83940448-06d07a00-a81f-11ea-8342-2c835cebb777.gif)
 ***
 
-## 006algorithm 3.py
-N個の数字をランダムで発生させ、クイックソートするプログラム。
-
 ## 003download 2.py
 対象のHPの画像データ全てをダウンロードしてzipにまとめるプログラム
 
