@@ -10,10 +10,13 @@ import matplotlib.pyplot as plt
 import japanize_matplotlib
 
 
+N = 2
+
 
 tki = tkinter.Tk()
-tki.geometry('500x400') 
+tki.geometry(f'500x{200*N}') 
 tki.title('対象の飲食チェーンを選択')
+months = ['1','2','3','4','5','6','7','8','9','10','11','12']
 
 
 def get_sales(combo_get):
@@ -36,30 +39,21 @@ def get_sales(combo_get):
     return sales
 
 
-def food_chain_graph():
-    combo_get = combo.get()
-    combo_get2 = combo2.get()
+def food_chain_graph(combo_get, fig):
     sales = get_sales(combo_get)
-    sales2 = get_sales(combo_get2)
-    print(sales)
-    months = ['1','2','3','4','5','6','7','8','9','10','11','12']
-    fig = plt.figure(figsize=(8,4))
-    ax1 = fig.add_subplot(111)
-    ax2 = fig.add_subplot(111)
-    ax3 = fig.add_subplot(111)
-    ax1.plot(months,sales,label=combo_get,marker='o')
-    ax2.plot(months,sales2,label=combo_get2,marker='o')
-    ax3.plot(months,[100,100,100,100,100,100,100,100,100,100,100,100])
+    ax = fig.add_subplot(111)
+    ax.plot(months,sales,label=combo_get,marker='o')
+
     
-    plt.title('チェーン店　対前年同月比推移')
-    plt.xlabel('月')
-    plt.ylabel('売上対前年比（％）')
-    plt.legend()
-
-    plt.legend()
+def plot_graph():
+    fig = plt.figure(figsize=(12,8))
+    ax = fig.add_subplot(111)
+    ax.plot(months, [100] * 12)
+    for i in range(0, N):
+        combo_get = combos[i].get()
+        food_chain_graph(combo_get, fig)
     plt.show()
-
-
+    
 food_chain = []
 chain_dict = {}
 html = requests.get('https://www.fb-soken.com/monthly_sales.html')
@@ -69,38 +63,26 @@ if not html.status_code == 200:
 else:
     tr = html2.find_all('tr')
     tr_length = len(tr)
-    
     for i in range(0,tr_length-2,3):
         chain_name = tr[1+i]
         chain_name = chain_name.find('th')
         chain_name = chain_name.text
         food_chain.append(chain_name)
         chain_dict[chain_name] = 1+i 
-
-
-lbl = tkinter.Label(tki,text='飲食チェーンを選んでください(1)')
-lbl.place(x=40, y=100)
-
-combo = ttk.Combobox(tki, state='readonly')
-combo['values']=food_chain
-combo.current(0)
-combo.pack()
-combo.place(x=40, y=120) 
-
-lbl2 = tkinter.Label(tki,text='飲食チェーンを選んでください(2)')
-lbl2.place(x=40, y=190)
-
-combo2 = ttk.Combobox(tki, state='readonly')
-combo2['values']=food_chain
-combo2.current(0)
-combo2.pack()
-combo2.place(x=40, y=220) 
-
-lbl = tkinter.Label(tki,text='２つの飲食チェーンの対前年比売上高を比較します')
-lbl.place(x=40, y=270)
-
-btn = tkinter.Button(tki, text='実行',command=food_chain_graph) 
+        
+combos = []
+for i in range(0, N):
+    lbl = tkinter.Label(tki,text=f'飲食チェーンを選んでください({i+1})')
+    lbl.place(x=40, y=100 + i * 90)
+    combos.append(ttk.Combobox(tki, state='readonly'))
+    combos[i]['values']=food_chain
+    combos[i].current(0)
+    combos[i].pack()
+    combos[i].place(x=40, y=120 + 100 * i) 
+    
+    
+lbl = tkinter.Label(tki,text=f'{N}個の飲食チェーンの対前年比売上高を比較します')
+lbl.place(x=40, y=130*N)
+btn = tkinter.Button(tki, text='実行',command=plot_graph) 
 btn.place(x=300, y=300) 
-
-
 tki.mainloop()
