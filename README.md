@@ -1,8 +1,4 @@
 # SHIRAI-PythonLearning
- 
-## 012customer_database
-（データベースの学習）お客様データベースの登録と照会を行うプログラム。
-![ジフ](https://user-images.githubusercontent.com/20613753/85220356-c7d92180-b3e5-11ea-9908-b45c54595b6c.gif)
 
 ## 005FoodChainSales
 フードチェーン店の売上前年同月比をグラフで比べるプログラムです。
